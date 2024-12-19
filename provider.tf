@@ -1,9 +1,9 @@
 terraform {
   cloud {
     organization = "mudragiri"
-    # workspaces {
-    #   tags = ["My-App"]
-    # }
+    workspaces {
+      tags = ["My-App"]
+    }
   }
   required_providers {
     aws = {
