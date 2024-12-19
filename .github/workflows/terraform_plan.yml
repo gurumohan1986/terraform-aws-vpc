@@ -1,4 +1,4 @@
-name: 'Terraform Plan'
+name: 'AWS VPC Creation - Terraform Plan'
 
 on:
   pull_request:
