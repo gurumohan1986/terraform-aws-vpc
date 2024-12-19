@@ -14,7 +14,7 @@ env:
 
 jobs:
   terraform:
-    if: github.repository != 'gurumohan1986/terraform-aws-vpc'
+    # if: github.repository != 'gurumohan1986/terraform-aws-vpc'
     name: "Terraform Plan"
     runs-on: ubuntu-latest
     permissions:
