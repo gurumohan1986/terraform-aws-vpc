@@ -13,7 +13,7 @@ variable "AWS_SECRET_ACCESS_KEY" {
 variable "aws_region" {
   description = "Region of the AWS where you want to privision infrastructure"
   type        = string
-  default     = "us-east-1"
+  default     = "" #"us-east-1"
 }
 
 variable "cidr_block" {

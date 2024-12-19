@@ -1,8 +1,9 @@
 terraform {
+  required_version = ">= 1.1.0"
   cloud {
     organization = "mudragiri"
     workspaces {
-      tags = ["My-App"]
+      tags = "my_app"
     }
   }
   required_providers {
@@ -10,7 +11,12 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.4.3"
+    }
   }
+  
 }
 
 # Configure the AWS Provider
