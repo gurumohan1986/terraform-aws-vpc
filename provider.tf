@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "My-Org"
+    organization = "mudragiri"
     # workspaces {
     #   tags = ["My-App"]
     # }
