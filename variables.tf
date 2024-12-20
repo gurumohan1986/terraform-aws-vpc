@@ -38,7 +38,19 @@ variable "cidr_block" {
   default     = ""
 }
 
+variable "public_subnet_cidr_block" {
+  description = "CIDR range for the Public Subnet that you wanted to create"
+  type        = string
+  default     = ""
+}
+
 variable "main_vpc_tags" {
+  description = "Tags for the VPC that you wanted to create"
+  type        = map(any)
+  default     = {}
+}
+
+variable "public_subnet_tags" {
   description = "Tags for the VPC that you wanted to create"
   type        = map(any)
   default     = {}
