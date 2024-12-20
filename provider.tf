@@ -3,7 +3,7 @@ terraform {
   cloud {
     organization = "mudragiri"
     workspaces {
-      tags = "my_app"
+      tags = "aws0_useast_1_vpc"
     }
   }
   required_providers {
