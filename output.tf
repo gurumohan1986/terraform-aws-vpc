@@ -7,5 +7,5 @@ output "access_key" {
 }
 
 output "secret_key" {
-  value = {var.AWS_SECRET_ACCESS_KEY}
+  value = var.AWS_SECRET_ACCESS_KEY
 }
