@@ -4,7 +4,7 @@ terraform {
   cloud {
     organization = "mudragiri"
     workspaces {
-      tags = "aws0_useast_1_vpc"
+      name = "aws0_useast_1_vpc"
     }
   }
 
