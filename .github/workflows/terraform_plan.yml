@@ -52,11 +52,10 @@ jobs:
           echo "Logging into Terraform Cloud"
           echo $HOME
           echo ${{ secrets.TF_API_TOKEN }}
-          echo $TF_API_TOKEN
           mkdir -p $HOME/.terraform.d
           echo "{\"credentials\":{\"app.terraform.io\":{\"token\":\"${{ secrets.TF_API_TOKEN }}\"}}}" > $HOME/.terraform.d/credentials.tfrc.json
           cat $HOME/.terraform.d/credentials.tfrc.json
-          terraform login 
+          # terraform login 
 
       # Initialize Terraform
       - name: Terraform Init
