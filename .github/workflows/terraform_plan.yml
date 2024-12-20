@@ -49,18 +49,23 @@ jobs:
       # Set up Terraform Cloud Authentication
       - name: Terraform Cloud Login
         run: |
+          echo "Logging into Terraform Cloud"
           mkdir -p $HOME/.terraform.d
           echo "{\"credentials\":{\"app.terraform.io\":{\"token\":\"${{ secrets.TF_TOKEN_APP }}\"}}}" > $HOME/.terraform.d/credentials.tfrc.json
+          terraform login 
         env:
           TF_TOKEN_app: ${{ secrets.TF_TOKEN_APP }} # Ensure you add this secret in your GitHub repository secrets
 
       # Initialize Terraform
       - name: Terraform Init
-        run: terraform init -backend-config="hostname=app.terraform.io" -backend-config="organization=${{ env.TF_CLOUD_ORGANIZATION}}" -backend-config="workspace=${{ env.TF_CLOUD_WORKSPACE}}"
+        run: terraform init \
+                            -backend-config="hostname=app.terraform.io" 
+                            -backend-config="organization=${{ env.TF_CLOUD_ORGANIZATION}}" 
+                            -backend-config="workspace=${{ env.TF_CLOUD_WORKSPACE}}"
 
       # Run Terraform plan using specific variable file
       - name: Terraform Plan
-        run: terraform plan -var-file=env_variables/aws0_useast_1.tfvars -backend-config="hostname=app.terraform.io" -backend-config="organization=${{ env.TF_CLOUD_ORGANIZATION}}" -backend-config="workspace=${{ env.TF_CLOUD_WORKSPACE}}"
+        run: terraform plan -var-file=env_variables/aws0_useast_1.tfvars 
 
 
       # - name: Upload Configuration
