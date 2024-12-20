@@ -6,7 +6,7 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "main" {
   vpc_id     = "vpc-095217a8eb0fda76a" #aws_vpc.main.id
-  cidr_block = "172.31.10.0/24" #var.public_subnet_cidr_block
+  cidr_block = "172.31.100.0/24" #var.public_subnet_cidr_block
 
   tags = var.public_subnet_tags
 }
