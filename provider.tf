@@ -2,9 +2,9 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "mudragiri"
+    organization = var.tfc_organization
     workspaces {
-      name = "aws0_useast_1_vpc"
+      name = var.tfc_workspace
     }
   }
 
