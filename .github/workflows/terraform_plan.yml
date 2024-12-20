@@ -64,7 +64,7 @@ jobs:
       
       # Run Terraform plan using specific variable file
       - name: Terraform Apply
-        run: terraform ${{ env.tfc_command}} -var-file=env_variables/aws0_useast_1.tfvars 
+        run: terraform apply -var-file=env_variables/aws0_useast_1.tfvars 
 
 
       # - name: Upload Configuration
