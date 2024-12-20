@@ -1,19 +1,19 @@
-variable "AWS_ACCESS_KEY_ID" {
-  description = "AWS access key"
-  type        = string
-  default     = ""
-}
+# variable "AWS_ACCESS_KEY_ID" {
+#   description = "AWS access key"
+#   type        = string
+#   default     = ""
+# }
 
-variable "AWS_SECRET_ACCESS_KEY" {
-  description = "AWS secret access key"
-  type        = string
-  default     = ""
-}
+# variable "AWS_SECRET_ACCESS_KEY" {
+#   description = "AWS secret access key"
+#   type        = string
+#   default     = ""
+# }
 
 variable "aws_region" {
   description = "Region of the AWS where you want to privision infrastructure"
   type        = string
-  default     = "" #"us-east-1"
+  default     = "us-east-1"
 }
 
 variable "cidr_block" {
