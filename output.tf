@@ -9,3 +9,7 @@ output "access_key" {
 output "secret_key" {
   value = var.AWS_SECRET_ACCESS_KEY
 }
+
+output "aws_region" {
+  value = var.aws_region
+}
