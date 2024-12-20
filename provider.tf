@@ -2,9 +2,9 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = var.tfc_organization
+    organization = "${var.tfc_organization}"
     workspaces {
-      name = var.tfc_workspace
+      name = "${var.tfc_workspace}"
     }
   }
 
