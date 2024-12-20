@@ -2,9 +2,9 @@ terraform {
   required_version = ">= 1.1.0"
   cloud {
     organization = "mudragiri"
-    # workspaces {
-    #   tags = "my_app"
-    # }
+    workspaces {
+      tags = "my_app"
+    }
   }
   required_providers {
     # aws = {
