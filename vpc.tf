@@ -40,15 +40,23 @@ resource "aws_instance" "foo" {
   ami           = "ami-0e2c8caa4b6378d8c" # us-west-2
   instance_type = "t2.micro"
 
-  provisioner "file" {
-    source="/Users/gurumohan/github/terraform-aws-vpc/scripts/script.sh"
-    destination="/home/script.sh"
-  }
+  security_groups = [aws_security_group.allow_ssh.id]
 
+  # provisioner "file" {
+  #   source="/Users/gurumohan/github/terraform-aws-vpc/scripts/script.sh"
+  #   destination="/home/script.sh"
+  # }
+
+  connect (
+    
+  )
   provisioner "remote-exec" {
     inline=[
-    "sudo chmod +x /tmp/script.sh",
-    "sudo /tmp/script.sh"
+    "sudo apt-get update",
+    "sudo apt-get install node -y",
+    "sudo apt-get install npm -y",
+    "sudo apt install mysql-client-core-8.0",
+    "sudo apt install openjdk-17-jdk -y"
     ]
   }
 
