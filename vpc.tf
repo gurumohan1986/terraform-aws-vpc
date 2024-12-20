@@ -11,20 +11,48 @@ resource "aws_subnet" "main" {
   tags = var.public_subnet_tags
 }
 
+
+resource "aws_security_group" "allow_ssh" {
+  name        = "allow_tls"
+  description = "Allow SSH inbound traffic and all outbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]from_port = 22
+    to_port = 22
+    protocol = "tcp"
+  }// Terraform removes the default rule
+  egress {
+   from_port = 0
+   to_port = 0
+   protocol = "-1"
+   cidr_blocks = ["0.0.0.0/0"]
+ }
+  tags = {
+    Name = "Allow SSH"
+  }
+}
+
 resource "aws_instance" "foo" {
   ami           = "ami-0e2c8caa4b6378d8c" # us-west-2
   instance_type = "t2.micro"
 
   provisioner "file" {
-  source="/Users/gurumohan/github/terraform-aws-vpc/scripts/script.sh"
-  destination="/tmp/script.sh"
-}
+    source="/Users/gurumohan/github/terraform-aws-vpc/scripts/script.sh"
+    destination="/home/script.sh"
+  }
 
-provisioner "remote-exec" {
-  inline=[
-  "sudo chmod +x /tmp/script.sh",
-  "sudo /tmp/script.sh"
-  ]
-}
+  provisioner "remote-exec" {
+    inline=[
+    "sudo chmod +x /tmp/script.sh",
+    "sudo /tmp/script.sh"
+    ]
+  }
+
+  tags = {
+    Name = "First Instance"
+  }
 
 }
