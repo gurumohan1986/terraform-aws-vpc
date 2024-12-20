@@ -51,13 +51,13 @@ jobs:
         run: |
           echo "Logging into Terraform Cloud"
           echo $HOME
-          echo ${{ secrets.TF_TOKEN_APP }}
+          echo ${{ secrets.TF_API_TOKEN }}
           mkdir -p $HOME/.terraform.d
           echo "{\"credentials\":{\"app.terraform.io\":{\"token\":\"${{ secrets.TF_TOKEN_APP }}\"}}}" > $HOME/.terraform.d/credentials.tfrc.json
           cat $HOME/.terraform.d/credentials.tfrc.json
           # terraform login 
         env:
-          TF_TOKEN_APP: ${{ secrets.TF_TOKEN_APP }} # Ensure you add this secret in your GitHub repository secrets
+          TF_TOKEN_APP: ${{ secrets.TF_API_TOKEN }} # Ensure you add this secret in your GitHub repository secrets
 
       # Initialize Terraform
       - name: Terraform Init
