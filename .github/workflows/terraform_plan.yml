@@ -62,8 +62,8 @@ jobs:
         run: terraform init #-backend-config="hostname=app.terraform.io" -backend-config="organization=${{ env.TF_CLOUD_ORGANIZATION}}" -backend-config="workspace=${{ env.TF_CLOUD_WORKSPACE}}"
       
       # Run Terraform plan using specific variable file
-      - name: Terraform Plan
-        run: terraform plan -var-file=env_variables/aws0_useast_1.tfvars 
+      - name: Terraform Apply
+        run: terraform apply -var-file=env_variables/aws0_useast_1.tfvars 
 
 
       # - name: Upload Configuration
