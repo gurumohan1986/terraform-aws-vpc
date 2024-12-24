@@ -28,7 +28,7 @@ variable "tfc_workspace" {
   default     = ""
 
   validation {
-    condition = var.tfc_workspace != ""
+    condition     = var.tfc_workspace != ""
     error_message = "Please pass the valid Terraform Cloud Workspace Name ...!"
   }
 }
@@ -44,14 +44,44 @@ variable "public_subnet_cidr_block" {
   default     = ""
 }
 
+variable "private_subnet_cidr_block" {
+  description = "CIDR range for the Private Subnet that you wanted to create"
+  type        = string
+  default     = ""
+}
+
 variable "main_vpc_tags" {
   description = "Tags for the VPC that you wanted to create"
   type        = map(any)
   default     = {}
 }
 
-variable "public_subnet_tags" {
-  description = "Tags for the VPC that you wanted to create"
+variable "route_table_local_tags" {
+  description = "Tags for the Local Route Table that you wanted to create"
   type        = map(any)
   default     = {}
+}
+
+variable "route_table_internet_tags" {
+  description = "Tags for the Internet Route Table that you wanted to create"
+  type        = map(any)
+  default     = {}
+}
+
+variable "public_subnet_tags" {
+  description = "Tags for the Public Subnet that you wanted to create"
+  type        = map(any)
+  default     = {}
+}
+
+variable "private_subnet_tags" {
+  description = "Tags for the Private Subnet that you wanted to create"
+  type        = map(any)
+  default     = {}
+}
+
+variable "ami" {
+  description = "Amazon Machine Image for the region"
+  type        = string
+  default     = ""
 }

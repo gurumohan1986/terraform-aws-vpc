@@ -1,67 +1,106 @@
-resource "aws_vpc" "main" {
-  cidr_block = var.cidr_block #"10.0.0.0/16" #var.cidr_block
+
+
+resource "aws_vpc" "first" {
+  cidr_block = var.cidr_block
 
   tags = var.main_vpc_tags
 }
 
-resource "aws_subnet" "main" {
-  vpc_id     = "vpc-095217a8eb0fda76a" #aws_vpc.main.id
-  cidr_block = "172.31.100.0/24" #var.public_subnet_cidr_block
+
+resource "aws_route_table" "local" {
+  vpc_id = aws_vpc.first.id
+
+  # since this is exactly the route AWS will create, the route will be adopted
+  route {
+    cidr_block = var.cidr_block
+    gateway_id = "local"
+  }
+
+  tags = var.route_table_local_tags
+}
+
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.first.id
+  cidr_block = var.public_subnet_cidr_block
 
   tags = var.public_subnet_tags
 }
 
+resource "aws_subnet" "private" {
+  vpc_id     = aws_vpc.first.id
+  cidr_block = var.private_subnet_cidr_block
+
+  tags = var.private_subnet_tags
+}
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.first.id
+
+  tags = {
+    Name = "Default Internet Gateway"
+  }
+}
+
+resource "aws_route_table" "internet_gateway" {
+  vpc_id = aws_vpc.first.id
+
+  # since this is exactly the route AWS will create, the route will be adopted
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+
+  tags = var.route_table_internet_tags
+}
+
+resource "aws_route_table_association" "internet_route_table" {
+  subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.internet_gateway.id
+}
 
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_tls"
   description = "Allow SSH inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = aws_vpc.first.id
 
   ingress {
     cidr_blocks = [
       "0.0.0.0/0"
     ]
     from_port = 22
-    to_port = 22
-    protocol = "tcp"
-  }// Terraform removes the default rule
+    to_port   = 22
+    protocol  = "tcp"
+  } // Terraform removes the default rule
   egress {
-   from_port = 0
-   to_port = 0
-   protocol = "-1"
-   cidr_blocks = ["0.0.0.0/0"]
- }
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   tags = {
     Name = "Allow SSH"
   }
 }
 
-resource "aws_instance" "foo" {
-  ami           = "ami-0e2c8caa4b6378d8c" # us-west-2
-  instance_type = "t2.micro"
+resource "aws_instance" "public_ec2" {
+  subnet_id                   = aws_subnet.public.id
+  associate_public_ip_address = true
+  ami                         = var.ami
+  instance_type               = "t2.micro"
 
   security_groups = [aws_security_group.allow_ssh.id]
 
-  # provisioner "file" {
-  #   source="/Users/gurumohan/github/terraform-aws-vpc/scripts/script.sh"
-  #   destination="/home/script.sh"
-  # }
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt-get update -y
+              sudo apt-get install -y openjdk-17-jdk
+              java -version
+              EOF
 
-  connect (
-    
-  )
-  provisioner "remote-exec" {
-    inline=[
-    "sudo apt-get update",
-    "sudo apt-get install node -y",
-    "sudo apt-get install npm -y",
-    "sudo apt install mysql-client-core-8.0",
-    "sudo apt install openjdk-17-jdk -y"
-    ]
-  }
+  key_name = "guru"
 
   tags = {
-    Name = "First Instance"
+    Name = "First EC2 Instance"
   }
 
 }
