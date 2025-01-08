@@ -11,7 +11,7 @@ env:
   TF_CLOUD_ORGANIZATION: "mudragiri"
   TF_CLOUD_WORKSPACE: "aws0_useast_1_vpc"
   CONFIG_DIRECTORY: "./"
-  tfc_command: "apply"
+  tfc_command: "destroy"
 
 jobs:
   terraform:
@@ -32,20 +32,6 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt
-  
-      # - name: Terraform Init
-      #   id: init
-      #   run: terraform init
-        
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate -no-color
-  
-      # - name: Terraform Plan
-      #   id: plan
-      #   # if: github.event_name == 'pull_request'
-      #   run: terraform plan -no-color -input=false
-      #   continue-on-error: true
 
       # Set up Terraform Cloud Authentication
       - name: Terraform Cloud Login
@@ -65,27 +51,3 @@ jobs:
       # Run Terraform plan using specific variable file
       - name: Terraform Apply
         run: terraform ${{ env.tfc_command}} -var-file=env_variables/aws0_useast_1.tfvars 
-
-
-      # - name: Upload Configuration
-      #   uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
-      #   id: plan-upload
-      #   with:
-      #     workspace: ${{ env.TF_CLOUD_WORKSPACE }}
-      #     directory: ${{ env.CONFIG_DIRECTORY }}
-      #     speculative: false
-
-      # - name: Create Plan Run
-      #   uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
-      #   id: plan-run
-      #   with:
-      #     workspace: ${{ env.TF_WORKSPACE }}
-      #     configuration_version: ${{ steps.plan-upload.outputs.configuration_version_id }}
-      #     plan_only: true
-
-      # - name: Get Plan Output
-      #   uses: hashicorp/tfc-workflows-github/actions/plan-output@v1.0.0
-      #   id: plan-output
-      #   with:
-      #     plan: ${{ fromJSON(steps.plan-run.outputs.payload).data.relationships.plan.data.id }}
-
