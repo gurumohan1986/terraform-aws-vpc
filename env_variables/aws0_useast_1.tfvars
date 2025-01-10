@@ -10,3 +10,5 @@ route_table_internet_tags = { "Name" = "Internet Route Table" }
 public_subnet_tags        = { "Name" = "Public Subnet" }
 private_subnet_tags       = { "Name" = "Private Subnet" }
 ami                       = "ami-0ca9fb66e076a6e32"
+instance_type             = "t2.micro"
+public_ip_required        = true

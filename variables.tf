@@ -85,3 +85,15 @@ variable "ami" {
   type        = string
   default     = ""
 }
+
+variable "instance_type" {
+  description = "EC2 instance_type you are trying to provision"
+  type        = string
+  default     = "t2.micro"
+}
+
+variable "public_ip_required" {
+  description = "Is public ip required for your EC2 ?"
+  type        = bool
+  default     = false
+}

@@ -84,9 +84,9 @@ resource "aws_security_group" "allow_ssh" {
 
 resource "aws_instance" "public_ec2" {
   subnet_id                   = aws_subnet.public.id
-  associate_public_ip_address = true
+  associate_public_ip_address = var.public_ip_required
   ami                         = var.ami
-  instance_type               = "t2.micro"
+  instance_type               = var.instance_type
 
   security_groups = [aws_security_group.allow_ssh.id]
 
