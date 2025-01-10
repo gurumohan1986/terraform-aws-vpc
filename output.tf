@@ -22,6 +22,10 @@ output "internet_gateway" {
   value = aws_internet_gateway.main
 }
 
+output "ssh_security_group" {
+  value = aws_security_group.allow_ssh
+}
+
 output "ec2" {
   value = aws_instance.public_ec2
 }
