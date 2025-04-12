@@ -11,7 +11,7 @@ env:
   TF_CLOUD_ORGANIZATION: "mudragiri"
   TF_CLOUD_WORKSPACE: "aws0_useast_1_vpc"
   CONFIG_DIRECTORY: "./"
-  tfc_command: "apply"
+  tfc_command: "destroy" #"apply"
 
 jobs:
   terraform:
