@@ -29,3 +29,7 @@ output "ssh_security_group" {
 output "ec2" {
   value = aws_instance.public_ec2
 }
+
+output "s3" {
+  value = aws_s3_bucket.my_bucket
+}
