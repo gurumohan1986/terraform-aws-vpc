@@ -1,3 +1,4 @@
+
 tfc_organization          = "mudragiri"
 tfc_workspace             = "aws0_useast_1_vpc"
 aws_region                = "us-east-1"
@@ -12,3 +13,4 @@ private_subnet_tags       = { "Name" = "Private Subnet" }
 ami                       = "ami-0ca9fb66e076a6e32"
 instance_type             = "t2.micro"
 public_ip_required        = true
+s3_bucket_name            = "my-unique-s3-bucket-name-bharu-123"

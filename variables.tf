@@ -97,3 +97,9 @@ variable "public_ip_required" {
   type        = bool
   default     = false
 }
+
+variable "s3_bucket_name" {
+  description = "S3 bucket name to provision"
+  type        = string
+  default     = "my-unique-s3-bucket-name-bharu-123"
+}
